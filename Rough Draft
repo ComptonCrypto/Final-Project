@@ -1,0 +1,66 @@
+"""A classoc rock, paper scissor game 
+By: Ashley Compoton"""
+
+
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+class RockPaperScissors:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Rock Paper Scissors")
+        
+        self.user_choice = None
+        self.options = ['Rock', 'Paper', 'Scissors']
+
+        # Adding Buttons
+        self.rock_button = tk.Button(root, text="Rock", command=self.play_rock)
+        self.paper_button = tk.Button(root, text="Paper", command=self.play_paper)
+        self.scissors_button = tk.Button(root, text="Scissors", command=self.play_scissors)
+
+        # Placing Buttons
+        self.rock_button.pack(side=tk.LEFT)
+        self.paper_button.pack(side=tk.LEFT)
+        self.scissors_button.pack(side=tk.LEFT)
+
+        # Adding Images (Assuming images are in the same directory)
+        self.rock_image = tk.PhotoImage(file="rock.png")
+        self.paper_image = tk.PhotoImage(file="paper.png")
+        self.scissors_image = tk.PhotoImage(file="scissors.png")
+
+        self.image_label = tk.Label(root)
+        self.image_label.pack()
+
+    def play_rock(self):
+        self.user_choice = 'Rock'
+        self.image_label.config(image=self.rock_image)
+        self.determine_winner()
+
+    def play_paper(self):
+        self.user_choice = 'Paper'
+        self.image_label.config(image=self.paper_image)
+        self.determine_winner()
+
+    def play_scissors(self):
+        self.user_choice = 'Scissors'
+        self.image_label.config(image=self.scissors_image)
+        self.determine_winner()
+
+    def determine_winner(self):
+        computer_choice = random.choice(self.options)
+        
+        if self.user_choice == computer_choice:
+            messagebox.showinfo("Result", "It's a tie!")
+        elif (self.user_choice == 'Rock' and computer_choice == 'Scissors') or \
+             (self.user_choice == 'Paper' and computer_choice == 'Rock') or \
+             (self.user_choice == 'Scissors' and computer_choice == 'Paper'):
+            messagebox.showinfo("Result", "You win!")
+        else:
+            messagebox.showinfo("Result", "You lose!")
+
+# Main Execution
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = RockPaperScissors(root)
+    root.mainloop()
