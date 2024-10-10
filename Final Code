@@ -1,0 +1,62 @@
+"""This is a simple rock, paper, scissors game using Tkinter in Python.
+Written by: Ashley Compton"""
+
+import tkinter as tk  # Import the tkinter module for creating the GUI
+import random  # Import the random module to select the computer's choice randomly
+
+def play_game(choice):
+    """Function to handle the game logic when the user selects an option."""
+    computer_choice = random.choice(["Rock", "Paper", "Scissors"])  # Randomly select a choice for the computer
+
+    # Display the user's and computer's choices
+    result_label.config(text=f"You chose: {choice}\nComputer chose: {computer_choice}")
+
+    # Determine the result of the game and display appropriate messages
+    if choice == computer_choice:
+        result_label.config(text=f"{result_label.cget('text')}\nIt's a tie!")  # Display tie message
+    elif (
+        (choice == "Rock" and computer_choice == "Scissors") or
+        (choice == "Paper" and computer_choice == "Rock") or
+        (choice == "Scissors" and computer_choice == "Paper")
+    ):
+        result_label.config(text=f"{result_label.cget('text')}\nYou win!")  # Display win message
+    else:
+        result_label.config(text=f"{result_label.cget('text')}\nYou lose!")  # Display lose message
+
+def clear_selection():
+    """Function to clear the result when the 'Clear' button is pressed."""
+    result_label.config(text="")  # Clear the result label text
+
+def exit_game():
+    """Function to exit the application when the 'Exit' button is pressed."""
+    window.quit()  # Close the application window
+
+# Create the main window for the application
+window = tk.Tk()  # Initialize the Tkinter window
+window.title("Rock Paper Scissors")  # Set the title of the window
+window.configure(bg='lightgreen')  # Set the background color to light green
+
+# Create buttons with different colors
+rock_button = tk.Button(window, text="Rock", command=lambda: play_game("Rock"), bg='red', fg='white')  # Button for Rock
+rock_button.pack(pady=10)  # Pack the Rock button into the window with padding
+
+paper_button = tk.Button(window, text="Paper", command=lambda: play_game("Paper"), bg='blue', fg='white')  # Button for Paper
+paper_button.pack(pady=10)  # Pack the Paper button into the window with padding
+
+scissors_button = tk.Button(window, text="Scissors", command=lambda: play_game("Scissors"), bg='yellow', fg='black')  # Button for Scissors
+scissors_button.pack(pady=10)  # Pack the Scissors button into the window with padding
+
+# Create the clear button to reset the selection
+clear_button = tk.Button(window, text="Clear", command=clear_selection, bg='orange', fg='black')  # Button to clear results
+clear_button.pack(pady=10)  # Pack the clear button into the window with padding
+
+# Create the exit button to close the application
+exit_button = tk.Button(window, text="Exit", command=exit_game, bg='purple', fg='white')  # Button to exit the application
+exit_button.pack(pady=10)  # Pack the exit button into the window with padding
+
+# Create the result label to display the game results
+result_label = tk.Label(window, text="", wraplength=250, bg='lightgreen')  # Label for displaying results
+result_label.pack(pady=10)  # Pack the label into the window with padding
+
+# Run the main event loop for the Tkinter application
+window.mainloop()  # Start the application
